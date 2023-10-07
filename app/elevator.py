@@ -24,6 +24,8 @@ class Elevator(metaclass=Singleton):
         return False
 
     async def press_inner_button(self, passenger: Passenger) -> None:
+        if self.passengers.get(passenger.id):
+            raise ValueError("Got error you provided passenger with the same id")
         self.passengers[passenger.id] = passenger
         await self.__move(passenger.destination_floor)
 
